@@ -15,13 +15,4 @@ class CategoryController extends Controller
             'categories' => Category::all(),
         ]);
     }
-
-    public function show(Category $category)
-    {
-        return view('posts', [
-            'title' => "Post By Category: $category->name",
-            'active_in' => 'Posts',
-            'posts' => $category->posts->load('category', 'author'),
-        ]);
-    }
 }
