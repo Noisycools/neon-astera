@@ -10,7 +10,7 @@ class CategoryController extends Controller
     public function index()
     {
         return view('categories', [
-            'title' => 'Neon Astera | Post Categories',
+            'title' => 'Post Categories',
             'active_in' => 'Categories',
             'categories' => Category::all(),
         ]);
