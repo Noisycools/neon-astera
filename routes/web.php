@@ -2,11 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,19 +19,17 @@ use App\Http\Controllers\DashboardController;
 */
 
 Route::get('/', function () {
-    return view('home', [
-        'title' => 'Home',
-        'active_in' => 'Home'
-    ]);
+  return view('home', [
+    'title' => 'Home',
+  ]);
 });
 
 Route::get('/about', function () {
-    return view('about', [
-        'title' => 'About',
-        'active_in' => 'About',
-        "name" => "Joni",
-        "email" => "joni@gmail.com",
-    ]);
+  return view('about', [
+    'title' => 'About',
+    "name" => "Joni",
+    "email" => "joni@gmail.com",
+  ]);
 });
 
 Route::get('/posts', [PostController::class, 'index']);
@@ -47,4 +44,8 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+Route::get('/dashboard', function () {
+  return view('dashboard.index');
+})->middleware('auth');
+
+Route::resource('/dashboard/posts', DashboardPostController::class);
